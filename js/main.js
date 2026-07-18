@@ -1,305 +1,248 @@
-/* ============================================================
-   MONO — A Study in Monochrome · main.js
-   ============================================================ */
+/* ==========================================================================
+   MONO Barberclub — main.js
+   Preloader, header behaviour, mobile nav, scroll reveals, counters,
+   review slider, booking form validation.
+   ========================================================================== */
+
 (() => {
   "use strict";
 
-  const $  = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
-
-  const formatPrice = (n) => "€" + Number(n).toLocaleString("en-IE");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Preloader ---------- */
-  const preloader = $("#preloader");
+  const preloader = document.getElementById("preloader");
   window.addEventListener("load", () => {
-    setTimeout(() => {
-      preloader.classList.add("is-done");
-      document.body.classList.add("is-loaded");
-    }, 900);
+    setTimeout(() => preloader.classList.add("is-done"), prefersReducedMotion ? 0 : 500);
   });
-  // Fallback in case load never fires (slow image CDN)
-  setTimeout(() => {
-    preloader.classList.add("is-done");
-    document.body.classList.add("is-loaded");
-  }, 4000);
+  // Fallback in case the load event stalls (slow fonts, etc.)
+  setTimeout(() => preloader.classList.add("is-done"), 3500);
 
-  /* ---------- Custom cursor ---------- */
-  const cursor = $("#cursor");
-  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    document.addEventListener("mousemove", (e) => {
-      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-    });
-    document.addEventListener("mouseover", (e) => {
-      const view  = e.target.closest('[data-cursor="view"]');
-      const hover = e.target.closest('[data-cursor="hover"], a, button');
-      cursor.classList.toggle("is-view", !!view);
-      cursor.classList.toggle("is-hover", !view && !!hover);
-    });
-  }
+  /* ---------- Header: scrolled state + hide on scroll down ---------- */
+  const header = document.getElementById("header");
+  let lastY = window.scrollY;
 
-  /* ---------- Header hide-on-scroll ---------- */
-  const header = $("#header");
-  let lastY = 0;
-  window.addEventListener("scroll", () => {
+  const onScroll = () => {
     const y = window.scrollY;
-    header.classList.toggle("is-hidden", y > lastY && y > 320 && !menu.classList.contains("is-open"));
+    header.classList.toggle("is-scrolled", y > 40);
+
+    // Hide header when scrolling down past the hero, show when scrolling up
+    if (y > 500 && y > lastY && !nav.classList.contains("is-open")) {
+      header.classList.add("is-hidden");
+    } else {
+      header.classList.remove("is-hidden");
+    }
     lastY = y;
-  }, { passive: true });
 
-  /* ---------- Mobile menu ---------- */
-  const burger = $("#burger");
-  const menu   = $("#menu");
-  const setMenu = (open) => {
-    burger.classList.toggle("is-open", open);
-    menu.classList.toggle("is-open", open);
-    burger.setAttribute("aria-expanded", String(open));
-    menu.setAttribute("aria-hidden", String(!open));
-    document.body.style.overflow = open ? "hidden" : "";
-  };
-  burger.addEventListener("click", () => setMenu(!menu.classList.contains("is-open")));
-  $$(".menu__link").forEach((a) => a.addEventListener("click", () => setMenu(false)));
-
-  /* ---------- Reveal on scroll ---------- */
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-  $$(".reveal").forEach((el) => revealObserver.observe(el));
-
-  /* ---------- Parallax media ---------- */
-  const parallaxEls = $$("[data-parallax]");
-  const heroMedia = $("#heroMedia");
-  const parallax = () => {
-    const vh = window.innerHeight;
-    if (heroMedia) {
-      heroMedia.style.transform = `translateY(${window.scrollY * 0.25}px)`;
-    }
-    parallaxEls.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > vh) return;
-      const progress = (rect.top + rect.height / 2 - vh / 2) / vh; // -0.5..0.5-ish
-      el.querySelector("img").style.transform = `scale(1.12) translateY(${progress * -6}%)`;
-    });
-  };
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    window.addEventListener("scroll", () => requestAnimationFrame(parallax), { passive: true });
-    parallax();
-  }
-
-  /* ---------- Product filters ---------- */
-  const filterBtns = $$(".filter");
-  const cards = $$(".card");
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      filterBtns.forEach((b) => {
-        b.classList.toggle("is-active", b === btn);
-        b.setAttribute("aria-pressed", String(b === btn));
-      });
-      const value = btn.dataset.filter;
-      cards.forEach((card) => {
-        const show = value === "all" || card.dataset.category === value;
-        card.classList.toggle("is-filtered", !show);
-        if (show) card.classList.add("is-visible"); // skip re-reveal
-      });
-    });
-  });
-
-  /* ---------- Toast ---------- */
-  const toast = $("#toast");
-  let toastTimer;
-  const showToast = (msg) => {
-    toast.textContent = msg;
-    toast.classList.add("is-visible");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2600);
+    toTop.classList.toggle("is-visible", y > 700);
   };
 
-  /* ---------- Cart ---------- */
-  const CART_KEY = "mono-cart";
-  const drawer = $("#drawer");
-  const drawerBackdrop = $("#drawerBackdrop");
-  const drawerItems = $("#drawerItems");
-  const drawerTotal = $("#drawerTotal");
-  const drawerCount = $("#drawerCount");
-  const cartCount = $("#cartCount");
+  /* ---------- Mobile nav ---------- */
+  const burger = document.getElementById("burger");
+  const nav = document.getElementById("nav");
 
-  let cart = [];
-  try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { cart = []; }
-
-  const saveCart = () => localStorage.setItem(CART_KEY, JSON.stringify(cart));
-
-  const renderCart = () => {
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    const totalSum = cart.reduce((sum, item) => sum + item.qty * item.price, 0);
-
-    cartCount.textContent = totalQty;
-    drawerCount.textContent = `(${totalQty})`;
-    drawerTotal.textContent = formatPrice(totalSum);
-
-    if (!cart.length) {
-      drawerItems.innerHTML = '<p class="drawer__empty">Your bag is empty — for now.</p>';
-      return;
-    }
-    drawerItems.innerHTML = cart.map((item, i) => `
-      <div class="bag-item">
-        <img class="bag-item__img" src="${item.img}" alt="${item.name}" />
-        <div>
-          <p class="bag-item__name">${item.name}</p>
-          <p class="bag-item__price">${formatPrice(item.price)}</p>
-          <span class="bag-item__qty">
-            <button data-qty="-1" data-index="${i}" aria-label="Decrease quantity">−</button>
-            <span>${item.qty}</span>
-            <button data-qty="1" data-index="${i}" aria-label="Increase quantity">+</button>
-          </span>
-        </div>
-        <button class="bag-item__remove" data-remove="${i}">Remove</button>
-      </div>
-    `).join("");
-  };
-
-  drawerItems.addEventListener("click", (e) => {
-    const qtyBtn = e.target.closest("[data-qty]");
-    const removeBtn = e.target.closest("[data-remove]");
-    if (qtyBtn) {
-      const item = cart[+qtyBtn.dataset.index];
-      item.qty += +qtyBtn.dataset.qty;
-      if (item.qty <= 0) cart.splice(+qtyBtn.dataset.index, 1);
-    } else if (removeBtn) {
-      cart.splice(+removeBtn.dataset.remove, 1);
-    } else return;
-    saveCart();
-    renderCart();
-  });
-
-  const addToCart = ({ name, price, img }) => {
-    const existing = cart.find((item) => item.name === name);
-    if (existing) existing.qty += 1;
-    else cart.push({ name, price: +price, img, qty: 1 });
-    saveCart();
-    renderCart();
-    cartCount.classList.remove("bump");
-    void cartCount.offsetWidth;
-    cartCount.classList.add("bump");
-    showToast(`${name} — added to your bag`);
-  };
-
-  const setDrawer = (open) => {
-    drawer.classList.toggle("is-open", open);
-    drawer.setAttribute("aria-hidden", String(!open));
-    drawerBackdrop.hidden = !open;
-    requestAnimationFrame(() => drawerBackdrop.classList.toggle("is-open", open));
-    document.body.style.overflow = open ? "hidden" : "";
-  };
-  $("#cartBtn").addEventListener("click", () => setDrawer(true));
-  $("#drawerClose").addEventListener("click", () => setDrawer(false));
-  drawerBackdrop.addEventListener("click", () => setDrawer(false));
-  $("#checkoutBtn").addEventListener("click", () => {
-    showToast(cart.length ? "This is a demo — no checkout, only style" : "Your bag is empty");
-  });
-
-  renderCart();
-
-  /* ---------- Quick view modal ---------- */
-  const modal = $("#modal");
-  let modalProduct = null;
-
-  const openModal = (card) => {
-    modalProduct = {
-      name: card.dataset.name,
-      price: card.dataset.price,
-      img: card.dataset.img,
-    };
-    $("#modalImg").src = modalProduct.img;
-    $("#modalImg").alt = modalProduct.name;
-    $("#modalName").textContent = modalProduct.name;
-    $("#modalCat").textContent = card.querySelector(".card__meta").textContent;
-    $("#modalPrice").textContent = formatPrice(modalProduct.price);
-    $("#modalDesc").textContent = card.dataset.desc;
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-    $("#modalClose").focus();
-  };
-  const closeModal = () => {
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
+  const closeNav = () => {
+    nav.classList.remove("is-open");
+    burger.classList.remove("is-open");
+    burger.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
   };
 
-  $("#modalClose").addEventListener("click", closeModal);
-  $("#modalBackdrop").addEventListener("click", closeModal);
-  $("#modalAdd").addEventListener("click", () => {
-    if (modalProduct) addToCart(modalProduct);
-    closeModal();
+  burger.addEventListener("click", () => {
+    const open = nav.classList.toggle("is-open");
+    burger.classList.toggle("is-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
   });
-  $$(".size").forEach((btn) => btn.addEventListener("click", () => {
-    $$(".size").forEach((b) => b.classList.toggle("is-active", b === btn));
-  }));
+
+  nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeNav));
 
   document.addEventListener("keydown", (e) => {
-    if (e.key !== "Escape") return;
-    closeModal();
-    setDrawer(false);
-    setMenu(false);
+    if (e.key === "Escape" && nav.classList.contains("is-open")) closeNav();
   });
 
-  /* ---------- Card actions ---------- */
-  $("#productGrid").addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-action]");
-    if (!btn) return;
-    const card = btn.closest(".card");
-    if (btn.dataset.action === "add") {
-      addToCart({ name: card.dataset.name, price: card.dataset.price, img: card.dataset.img });
-    } else {
-      openModal(card);
-    }
+  /* ---------- Active nav link on scroll ---------- */
+  const sections = [...document.querySelectorAll("section[id]")];
+  const navLinks = [...document.querySelectorAll(".nav__link")];
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) =>
+          link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`)
+        );
+      });
+    },
+    { rootMargin: "-40% 0px -55% 0px" }
+  );
+  sections.forEach((s) => sectionObserver.observe(s));
+
+  /* ---------- Scroll reveal (with per-sibling stagger) ---------- */
+  const reveals = [...document.querySelectorAll(".reveal")];
+
+  // Stagger siblings that share a parent so grids cascade in
+  const byParent = new Map();
+  reveals.forEach((el) => {
+    const list = byParent.get(el.parentElement) || [];
+    list.push(el);
+    byParent.set(el.parentElement, list);
+  });
+  byParent.forEach((list) => {
+    list.forEach((el, i) => el.style.setProperty("--reveal-delay", `${Math.min(i * 90, 450)}ms`));
   });
 
-  /* ---------- Lookbook drag scroll ---------- */
-  const strip = $("#strip");
-  let isDown = false, startX = 0, startScroll = 0, moved = false;
-  strip.addEventListener("pointerdown", (e) => {
-    isDown = true; moved = false;
-    startX = e.clientX;
-    startScroll = strip.scrollLeft;
-    strip.setPointerCapture(e.pointerId);
-  });
-  strip.addEventListener("pointermove", (e) => {
-    if (!isDown) return;
-    const dx = e.clientX - startX;
-    if (Math.abs(dx) > 5) {
-      moved = true;
-      strip.classList.add("is-dragging");
-    }
-    strip.scrollLeft = startScroll - dx;
-  });
-  const endDrag = () => {
-    isDown = false;
-    strip.classList.remove("is-dragging");
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+  );
+  reveals.forEach((el) => revealObserver.observe(el));
+
+  /* ---------- Animated counters ---------- */
+  const counters = [...document.querySelectorAll(".stat__num")];
+
+  const animateCount = (el) => {
+    const target = parseFloat(el.dataset.count);
+    const decimals = parseInt(el.dataset.decimal || "0", 10);
+    const duration = 1600;
+    const start = performance.now();
+
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      el.textContent = (target * eased).toFixed(decimals);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   };
-  strip.addEventListener("pointerup", endDrag);
-  strip.addEventListener("pointercancel", endDrag);
 
-  /* ---------- Newsletter ---------- */
-  const newsForm = $("#newsForm");
-  const newsMsg = $("#newsMsg");
-  newsForm.addEventListener("submit", (e) => {
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          prefersReducedMotion
+            ? (entry.target.textContent = entry.target.dataset.count)
+            : animateCount(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+  counters.forEach((el) => counterObserver.observe(el));
+
+  /* ---------- Reviews slider ---------- */
+  const track = document.getElementById("sliderTrack");
+  const slides = [...track.children];
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const dotsWrap = document.getElementById("sliderDots");
+
+  let index = 0;
+  let autoTimer = null;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement("button");
+    dot.className = "slider__dot";
+    dot.setAttribute("role", "tab");
+    dot.setAttribute("aria-label", `Go to review ${i + 1}`);
+    dot.addEventListener("click", () => goTo(i, true));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = [...dotsWrap.children];
+
+  const render = () => {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle("is-active", i === index));
+  };
+
+  const goTo = (i, user = false) => {
+    index = (i + slides.length) % slides.length;
+    render();
+    if (user) restartAuto();
+  };
+
+  const restartAuto = () => {
+    if (prefersReducedMotion) return;
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goTo(index + 1), 6000);
+  };
+
+  prevBtn.addEventListener("click", () => goTo(index - 1, true));
+  nextBtn.addEventListener("click", () => goTo(index + 1, true));
+
+  // Touch swipe
+  let touchX = null;
+  track.addEventListener("touchstart", (e) => (touchX = e.touches[0].clientX), { passive: true });
+  track.addEventListener(
+    "touchend",
+    (e) => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 48) goTo(index + (dx < 0 ? 1 : -1), true);
+      touchX = null;
+    },
+    { passive: true }
+  );
+
+  // Pause auto-advance while hovering
+  const slider = document.getElementById("slider");
+  slider.addEventListener("mouseenter", () => clearInterval(autoTimer));
+  slider.addEventListener("mouseleave", restartAuto);
+
+  render();
+  restartAuto();
+
+  /* ---------- Booking form ---------- */
+  const form = document.getElementById("bookingForm");
+  const success = document.getElementById("bookingSuccess");
+
+  // Earliest bookable day is tomorrow
+  const dateInput = document.getElementById("bDate");
+  const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  dateInput.min = tomorrow.toISOString().split("T")[0];
+
+  const validateField = (input) => {
+    const field = input.closest(".field");
+    const valid = input.value.trim() !== "";
+    field.classList.toggle("is-invalid", !valid);
+    return valid;
+  };
+
+  form.querySelectorAll("[required]").forEach((input) => {
+    input.addEventListener("input", () => validateField(input));
+    input.addEventListener("change", () => validateField(input));
+  });
+
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const email = $("#newsEmail").value.trim();
-    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-    newsMsg.classList.toggle("is-error", !valid);
-    if (!valid) {
-      newsMsg.textContent = "Please enter a valid email address";
+    const requiredFields = [...form.querySelectorAll("[required]")];
+    const allValid = requiredFields.map(validateField).every(Boolean);
+    if (!allValid) {
+      form.querySelector(".field.is-invalid input, .field.is-invalid select")?.focus();
       return;
     }
-    newsMsg.textContent = "Welcome to the maison — check your inbox";
-    newsForm.reset();
+    // In production this would POST to a booking endpoint.
+    success.hidden = false;
+    success.setAttribute("tabindex", "-1");
+    success.focus();
   });
 
+  /* ---------- Back to top ---------- */
+  const toTop = document.getElementById("toTop");
+  toTop.addEventListener("click", () =>
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" })
+  );
+
   /* ---------- Footer year ---------- */
-  $("#year").textContent = new Date().getFullYear();
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 })();
