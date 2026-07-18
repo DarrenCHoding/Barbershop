@@ -270,6 +270,25 @@ h1, h2, h3 {
 
 .hero__bg { position: absolute; inset: 0; z-index: -1; }
 
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  filter: grayscale(1) contrast(1.1);
+}
+
+/* keeps the type readable over the photo */
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(11, 11, 11, 0.92) 0%, rgba(11, 11, 11, 0.55) 55%, rgba(11, 11, 11, 0.8) 100%),
+    linear-gradient(180deg, rgba(11, 11, 11, 0.55) 0%, transparent 35%, rgba(11, 11, 11, 0.95) 100%);
+}
+
 .hero__glow {
   position: absolute;
   border-radius: 50%;
@@ -474,7 +493,15 @@ h1, h2, h3 {
   border: 1px solid var(--line-soft);
   pointer-events: none;
 }
-.about__art { color: var(--gold); width: 100%; height: auto; opacity: 0.9; }
+.about__photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 0.5s ease;
+}
+.about__frame:hover .about__photo { filter: grayscale(0.15) contrast(1.02); }
 
 .about__frame-badge {
   position: absolute;
@@ -681,17 +708,22 @@ h1, h2, h3 {
     radial-gradient(120% 90% at 50% 0%, rgba(201, 162, 39, 0.1), transparent 60%),
     var(--ink-2);
   border: 1px solid var(--line-soft);
-  padding: 2rem 3rem 0;
+  aspect-ratio: 5 / 5.6;
   margin-bottom: 1.4rem;
   overflow: hidden;
 }
-.barber__portrait svg {
+.barber__portrait img {
   width: 100%;
-  height: auto;
-  color: rgba(245, 241, 232, 0.5);
-  transition: color 0.4s ease;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 0.5s ease, transform 0.6s var(--ease-out);
 }
-.barber:hover .barber__portrait svg { color: var(--gold); }
+.barber:hover .barber__portrait img {
+  filter: grayscale(0) contrast(1);
+  transform: scale(1.04);
+}
 
 .barber__tag {
   position: absolute;
@@ -741,30 +773,35 @@ h1, h2, h3 {
 .gallery__item--wide { grid-column: span 2; }
 .gallery__item--tall { grid-row: span 2; }
 
-.gallery__ink {
-  color: rgba(245, 241, 232, 0.35);
-  width: clamp(64px, 32%, 110px);
-  transition: color 0.4s ease, transform 0.5s var(--ease-out);
+.gallery__item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 0.5s ease, transform 0.7s var(--ease-out);
 }
-.gallery__item:hover .gallery__ink { color: var(--gold); transform: scale(1.08) rotate(-3deg); }
+.gallery__item:hover img {
+  filter: grayscale(0.15) contrast(1);
+  transform: scale(1.06);
+}
 
 .gallery__item figcaption {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 0.8rem 1.1rem;
+  padding: 1.4rem 1.1rem 0.8rem;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--paper-dim);
-  background: linear-gradient(transparent, rgba(11, 11, 11, 0.85));
+  color: var(--paper);
+  background: linear-gradient(transparent, rgba(11, 11, 11, 0.9));
   transform: translateY(100%);
   transition: transform 0.4s var(--ease-out);
 }
 .gallery__item:hover figcaption { transform: translateY(0); }
-
-.gallery__item > svg[aria-hidden] { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
 
 /* ---------- Reviews slider ---------- */
 .slider { max-width: 780px; margin-inline: auto; }
