@@ -3,581 +3,471 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Precision cuts, classic shaves and modern grooming at MONO Barberclub, established in 2016. Book your chair." />
-  <meta name="theme-color" content="#0b0b0b" />
-  <title>MONO Barberclub | Sharp. Classic. Yours.</title>
+  <meta name="description" content="MONO — a study in monochrome. Sculptural tailoring, precise knitwear and quiet luxury accessories. Explore the FW26 collection." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>MONO — Fall/Winter 26 | A Study in Monochrome</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0b0b'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' fill='%23c9a227' text-anchor='middle' font-weight='700'%3EM.%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' fill='%23f4f2ee' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
 
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body id="top">
 
-  <!-- ======================= PRELOADER ======================= -->
+  <!-- ============ PRELOADER ============ -->
   <div class="preloader" id="preloader" aria-hidden="true">
-    <div class="preloader__inner">
-      <span class="preloader__logo">MONO<span class="gold">.</span></span>
-      <span class="preloader__bar"><span class="preloader__bar-fill"></span></span>
-    </div>
+    <span class="preloader__word">M<span>O</span>NO</span>
+    <span class="preloader__line"><span></span></span>
   </div>
 
-  <!-- ======================= HEADER ======================= -->
-  <header class="header" id="header">
-    <div class="container header__inner">
-      <a href="#top" class="header__logo" aria-label="MONO Barberclub, back to top">
-        MONO<span class="gold">.</span><small>BARBERCLUB</small>
-      </a>
+  <!-- ============ CURSOR (desktop) ============ -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-      <nav class="nav" id="nav" aria-label="Main navigation">
+  <!-- ============ ANNOUNCEMENT BAR ============ -->
+  <div class="topbar" role="note">
+    <p>Complimentary shipping &amp; returns worldwide — the FW26 collection has arrived</p>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
+
+      <nav class="nav" aria-label="Main navigation">
         <ul class="nav__list">
-          <li><a href="#about"    class="nav__link">About</a></li>
-          <li><a href="#services" class="nav__link">Services</a></li>
-          <li><a href="#barbers"  class="nav__link">Barbers</a></li>
-          <li><a href="#gallery"  class="nav__link">Gallery</a></li>
-          <li><a href="#reviews"  class="nav__link">Reviews</a></li>
-          <li><a href="#contact"  class="nav__link">Contact</a></li>
+          <li><a class="nav__link" href="#collection" data-cursor="hover">Collection</a></li>
+          <li><a class="nav__link" href="#campaign"   data-cursor="hover">Campaign</a></li>
+          <li><a class="nav__link" href="#lookbook"   data-cursor="hover">Lookbook</a></li>
+          <li><a class="nav__link" href="#atelier"    data-cursor="hover">Atelier</a></li>
         </ul>
-        <a href="#contact" class="btn btn--gold nav__cta">Book Now</a>
       </nav>
 
-      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="#top" class="header__logo" aria-label="MONO — home">MONO</a>
+
+      <div class="header__actions">
+        <button class="icon-btn icon-btn--bag" id="cartBtn" aria-label="Open shopping bag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1.2 12.2a1.5 1.5 0 0 1-1.5 1.3H7.7a1.5 1.5 0 0 1-1.5-1.3L5 8Z"/><path d="M8.5 10V6.5a3.5 3.5 0 0 1 7 0V10"/></svg>
+          <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main id="top">
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <nav aria-label="Mobile navigation">
+      <ul class="menu__list">
+        <li style="--i:0"><a href="#collection" class="menu__link">Collection</a></li>
+        <li style="--i:1"><a href="#campaign"   class="menu__link">Campaign</a></li>
+        <li style="--i:2"><a href="#lookbook"   class="menu__link">Lookbook</a></li>
+        <li style="--i:3"><a href="#atelier"    class="menu__link">Atelier</a></li>
+        <li style="--i:4"><a href="#newsletter" class="menu__link">Newsletter</a></li>
+      </ul>
+    </nav>
+    <p class="menu__foot">MONO — a study in monochrome<br />Milano · Paris · Tokyo</p>
+  </div>
 
-    <!-- ======================= HERO ======================= -->
+  <main>
+
+    <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
-      <div class="hero__bg" aria-hidden="true">
-        <img class="hero__photo" src="https://image.shutterstock.com/z/stock-photo-barbershop-interior-black-and-white-dark-background-1633272001.jpg" alt="" />
-        <span class="hero__shade"></span>
-        <span class="hero__glow hero__glow--1"></span>
-        <span class="hero__glow hero__glow--2"></span>
-        <span class="hero__ghost">MONO</span>
-      </div>
+      <figure class="hero__media" id="heroMedia">
+        <img
+          src="https://image.shutterstock.com/z/stock-photo-elegant-woman-with-black-bob-hairstyle-wearing-a-white-gown-and-statement-jewelry-ideal-for-2694965429.jpg"
+          alt="Model with a black bob wearing a sculptural white MONO gown" />
+      </figure>
+      <div class="hero__scrim" aria-hidden="true"></div>
 
-      <div class="container hero__inner">
-        <p class="hero__overline reveal">Est. 2016 &nbsp;·&nbsp; Gentlemen’s Grooming &nbsp;·&nbsp; Berlin Mitte</p>
+      <div class="hero__content">
+        <p class="hero__eyebrow reveal">Fall / Winter 2026</p>
         <h1 class="hero__title">
-          <span class="hero__line"><span>Sharp.</span></span>
-          <span class="hero__line"><span>Classic.</span></span>
-          <span class="hero__line hero__line--accent"><span>Mono<em class="gold">.</em></span></span>
+          <span class="hero__line"><span>A study</span></span>
+          <span class="hero__line"><span>in <em>monochrome</em></span></span>
         </h1>
-        <p class="hero__sub reveal">
-          One chair, one craftsman, and one standard: yours. Precision cuts, hot-towel shaves
-          and honest grooming for gentlemen who care about the details.
-        </p>
-        <div class="hero__actions reveal">
-          <a href="#contact" class="btn btn--gold">Book Your Chair</a>
-          <a href="#services" class="btn btn--ghost">View Services</a>
+        <div class="hero__cta reveal">
+          <a href="#collection" class="btn btn--light" data-cursor="hover">Explore the collection</a>
+          <a href="#campaign" class="btn btn--ghost" data-cursor="hover">View the campaign</a>
         </div>
       </div>
 
-      <!-- rotating stamp -->
-      <div class="hero__stamp" aria-hidden="true">
-        <svg viewBox="0 0 120 120">
-          <defs>
-            <path id="stampCircle" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0" />
-          </defs>
-          <text>
-            <textPath href="#stampCircle">· MONO BARBERCLUB · SINCE 2016 · CUT &amp; SHAVE </textPath>
-          </text>
-          <g class="hero__stamp-scissors">
-            <path d="M52 52 L68 68 M68 52 L52 68" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="50" cy="50" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="70" cy="50" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-          </g>
-        </svg>
-      </div>
-
-      <a href="#about" class="hero__scroll" aria-label="Scroll to about section">
-        <span class="hero__scroll-text">Scroll</span>
-        <span class="hero__scroll-line"></span>
+      <a href="#collection" class="hero__scroll" aria-label="Scroll to collection">
+        <span></span>
       </a>
     </section>
 
-    <!-- ======================= MARQUEE ======================= -->
+    <!-- ============ MARQUEE ============ -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
-        <span>Haircut ✂ Skin Fade ✂ Beard Sculpt ✂ Hot Towel Shave ✂ Grey Blending ✂ Head Shave ✂ Father &amp; Son ✂&nbsp;</span>
-        <span>Haircut ✂ Skin Fade ✂ Beard Sculpt ✂ Hot Towel Shave ✂ Grey Blending ✂ Head Shave ✂ Father &amp; Son ✂&nbsp;</span>
+        <span>FW26 — Tone on tone&nbsp;·&nbsp;</span><span>Sculpted tailoring&nbsp;·&nbsp;</span>
+        <span>Cashmere in greyscale&nbsp;·&nbsp;</span><span>Made in Italy&nbsp;·&nbsp;</span>
+        <span>FW26 — Tone on tone&nbsp;·&nbsp;</span><span>Sculpted tailoring&nbsp;·&nbsp;</span>
+        <span>Cashmere in greyscale&nbsp;·&nbsp;</span><span>Made in Italy&nbsp;·&nbsp;</span>
       </div>
     </div>
 
-    <!-- ======================= ABOUT ======================= -->
-    <section class="section about" id="about">
-      <div class="container">
-        <div class="about__grid">
-          <div class="about__media reveal">
-            <div class="about__frame">
-              <img class="about__photo" src="https://image.shutterstock.com/z/stock-photo-a-vertical-shot-of-a-barbershop-black-leather-chair-with-a-mirror-in-front-2078167900.jpg" alt="Black leather barber chair in front of a mirror" loading="lazy" />
-              <span class="about__frame-badge">SINCE<br/>2016</span>
+    <!-- ============ COLLECTION ============ -->
+    <section class="section collection" id="collection">
+      <header class="section__head">
+        <p class="kicker reveal">01 — The Collection</p>
+        <h2 class="section__title reveal">New arrivals,<br /><em>quietly radical</em></h2>
+        <div class="filters reveal" role="group" aria-label="Filter products">
+          <button class="filter is-active" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" data-filter="outerwear"  aria-pressed="false">Outerwear</button>
+          <button class="filter" data-filter="tailoring"  aria-pressed="false">Tailoring</button>
+          <button class="filter" data-filter="knitwear"   aria-pressed="false">Knitwear</button>
+          <button class="filter" data-filter="accessories" aria-pressed="false">Accessories</button>
+        </div>
+      </header>
+
+      <div class="grid" id="productGrid">
+
+        <article class="card reveal" data-category="outerwear"
+          data-name="Arc Leather Trench" data-price="3950"
+          data-desc="A floor-skimming trench cut from glazed nappa leather. Storm flap, horn buttons, hand-finished belt."
+          data-img="https://image.shutterstock.com/z/stock-photo-elegant-woman-wearing-a-black-leather-trench-coat-sheer-stockings-and-high-heels-sits-in-a-2733867711.jpg">
+          <figure class="card__media" data-cursor="view">
+            <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-elegant-woman-wearing-a-black-leather-trench-coat-sheer-stockings-and-high-heels-sits-in-a-2733867711.jpg" alt="Model seated in a black leather MONO trench coat" />
+            <span class="card__tag">New</span>
+            <div class="card__actions">
+              <button class="card__quick" data-action="quickview">Quick view</button>
+              <button class="card__add"   data-action="add">Add to bag</button>
             </div>
+          </figure>
+          <div class="card__info">
+            <h3 class="card__name">Arc Leather Trench</h3>
+            <p class="card__meta">Outerwear</p>
+            <p class="card__price">€3,950</p>
           </div>
+        </article>
 
-          <div class="about__content">
-            <p class="section__overline reveal">The Club</p>
-            <h2 class="section__title reveal">Not a salon.<br/>A <em class="gold">craft</em> room.</h2>
-            <p class="reveal">
-              MONO was founded on a simple idea: strip away everything that doesn’t matter and
-              perfect what does. No loud music, no rushed chairs, no “next, please”. Just steel,
-              leather, hot towels, and barbers who treat every head like a signature.
-            </p>
-            <p class="reveal">
-              Every appointment starts with a consultation and ends with a finish check. We cut
-              with the grain of your lifestyle: how you style it, how it grows, how it should look
-              three weeks from now.
-            </p>
-
-            <ul class="about__points reveal">
-              <li><span class="gold">—</span> Appointment-only, zero waiting</li>
-              <li><span class="gold">—</span> Straight-razor finishing on every cut</li>
-              <li><span class="gold">—</span> Own grooming line, mixed in-house</li>
-            </ul>
-
-            <div class="stats reveal">
-              <div class="stat">
-                <span class="stat__num" data-count="9">0</span><span class="stat__plus">+</span>
-                <span class="stat__label">Years of craft</span>
-              </div>
-              <div class="stat">
-                <span class="stat__num" data-count="24">0</span><span class="stat__plus">k</span>
-                <span class="stat__label">Cuts delivered</span>
-              </div>
-              <div class="stat">
-                <span class="stat__num" data-count="6">0</span><span class="stat__plus"></span>
-                <span class="stat__label">Master barbers</span>
-              </div>
-              <div class="stat">
-                <span class="stat__num" data-count="4.9" data-decimal="1">0</span><span class="stat__plus">★</span>
-                <span class="stat__label">Google rating</span>
-              </div>
+        <article class="card reveal" data-category="tailoring"
+          data-name="Ombra Tailored Blazer" data-price="1890"
+          data-desc="Sharp-shouldered blazer in double-faced wool. Cut close, lined in silk, finished with a single covered button."
+          data-img="https://image.shutterstock.com/z/stock-photo-beautiful-young-woman-in-a-black-jacket-and-tights-model-in-a-black-and-white-contrast-studio-2594407645.jpg">
+          <figure class="card__media" data-cursor="view">
+            <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-beautiful-young-woman-in-a-black-jacket-and-tights-model-in-a-black-and-white-contrast-studio-2594407645.jpg" alt="Model wearing a sharply tailored black MONO blazer" />
+            <div class="card__actions">
+              <button class="card__quick" data-action="quickview">Quick view</button>
+              <button class="card__add"   data-action="add">Add to bag</button>
             </div>
+          </figure>
+          <div class="card__info">
+            <h3 class="card__name">Ombra Tailored Blazer</h3>
+            <p class="card__meta">Tailoring</p>
+            <p class="card__price">€1,890</p>
           </div>
-        </div>
-      </div>
-    </section>
+        </article>
 
-    <!-- ======================= SERVICES ======================= -->
-    <section class="section section--alt services" id="services">
-      <div class="container">
-        <div class="section__head">
-          <p class="section__overline reveal">Menu</p>
-          <h2 class="section__title reveal">Services &amp; <em class="gold">pricing</em></h2>
-          <p class="section__lead reveal">Every service includes consultation, wash, precision finish and styling advice. Card &amp; cash accepted.</p>
-        </div>
-
-        <div class="services__grid">
-          <article class="service reveal">
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                <circle cx="14" cy="34" r="6"/><circle cx="34" cy="34" r="6"/>
-                <path d="M18.5 29.5 L36 6 M29.5 29.5 L12 6"/>
-              </svg>
+        <article class="card reveal" data-category="outerwear"
+          data-name="Grafica Faux-Fur Coat" data-price="2450"
+          data-desc="A graphic monochrome faux-fur coat with an exaggerated collar. Fully recycled pile, satin lined."
+          data-img="https://image.shutterstock.com/z/stock-photo-fashionable-woman-poses-in-a-black-and-white-faux-fur-coat-with-a-bold-pattern-wearing-a-black-2583662145.jpg">
+          <figure class="card__media" data-cursor="view">
+            <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-fashionable-woman-poses-in-a-black-and-white-faux-fur-coat-with-a-bold-pattern-wearing-a-black-2583662145.jpg" alt="Model in a bold black and white MONO faux-fur coat" />
+            <span class="card__tag">Runway</span>
+            <div class="card__actions">
+              <button class="card__quick" data-action="quickview">Quick view</button>
+              <button class="card__add"   data-action="add">Add to bag</button>
             </div>
-            <div class="service__body">
-              <header class="service__head">
-                <h3>Classic Haircut</h3>
-                <span class="service__dots"></span>
-                <span class="service__price">35&nbsp;€</span>
-              </header>
-              <p>Scissor &amp; clipper cut tailored to your head shape, razor-finished neckline, wash and style. <span class="service__time">45 min</span></p>
-            </div>
-          </article>
-
-          <article class="service reveal">
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="14" y="6" width="20" height="14" rx="3"/>
-                <path d="M18 20 L18 30 Q18 34 22 34 L26 34 Q30 34 30 30 L30 20"/>
-                <path d="M24 34 L24 42"/>
-                <path d="M18 11 L30 11 M18 15 L30 15"/>
-              </svg>
-            </div>
-            <div class="service__body">
-              <header class="service__head">
-                <h3>Skin Fade</h3>
-                <span class="service__dots"></span>
-                <span class="service__price">40&nbsp;€</span>
-              </header>
-              <p>A zero-gap fade blended to the millimetre, whether you go low, mid or high. Sharp lines, foam finish, styled to leave. <span class="service__time">60 min</span></p>
-            </div>
-          </article>
-
-          <article class="service reveal">
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M10 14 Q24 4 38 14 Q40 26 32 34 Q24 42 16 34 Q8 26 10 14 Z"/>
-                <path d="M18 22 Q24 28 30 22"/>
-                <path d="M24 6 L24 12"/>
-              </svg>
-            </div>
-            <div class="service__body">
-              <header class="service__head">
-                <h3>Beard Sculpt</h3>
-                <span class="service__dots"></span>
-                <span class="service__price">25&nbsp;€</span>
-              </header>
-              <p>Shape, line-up and detail work with clippers and straight razor, finished with beard oil and balm. <span class="service__time">30 min</span></p>
-            </div>
-          </article>
-
-          <article class="service service--featured reveal">
-            <span class="service__flag">Signature</span>
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 34 L34 14 L40 20 L20 40 Q16 44 12 40 Q8 36 14 34 Z"/>
-                <path d="M30 10 L38 18 M34 14 L44 4"/>
-              </svg>
-            </div>
-            <div class="service__body">
-              <header class="service__head">
-                <h3>Hot Towel Shave</h3>
-                <span class="service__dots"></span>
-                <span class="service__price">45&nbsp;€</span>
-              </header>
-              <p>The full ritual of hot towels, pre-shave oil, lather, a two-pass straight-razor shave and a cold-towel close. <span class="service__time">50 min</span></p>
-            </div>
-          </article>
-
-          <article class="service reveal">
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="24" cy="16" r="8"/>
-                <path d="M8 42 Q8 30 24 30 Q40 30 40 42"/>
-              </svg>
-            </div>
-            <div class="service__body">
-              <header class="service__head">
-                <h3>Cut &amp; Beard Combo</h3>
-                <span class="service__dots"></span>
-                <span class="service__price">55&nbsp;€</span>
-              </header>
-              <p>The complete MONO look: full haircut plus beard sculpt in one seamless session. Our most-booked service. <span class="service__time">75 min</span></p>
-            </div>
-          </article>
-
-          <article class="service reveal">
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="17" cy="18" r="7"/>
-                <path d="M4 40 Q4 30 17 30 Q30 30 30 40"/>
-                <circle cx="34" cy="22" r="5"/>
-                <path d="M26 40 Q26 32 34 32 Q44 32 44 40"/>
-              </svg>
-            </div>
-            <div class="service__body">
-              <header class="service__head">
-                <h3>Father &amp; Son</h3>
-                <span class="service__dots"></span>
-                <span class="service__price">55&nbsp;€</span>
-              </header>
-              <p>Two chairs, side by side. A classic cut for you, a first-class cut for him (kids up to 12). <span class="service__time">60 min</span></p>
-            </div>
-          </article>
-        </div>
-
-        <p class="services__note reveal">
-          Grey blending +15 €&nbsp;·&nbsp;Head shave 30 €&nbsp;·&nbsp;Eyebrow / nose wax 10 €&nbsp;·&nbsp;Students &amp; military −10 % (Mon–Wed)
-        </p>
-      </div>
-    </section>
-
-    <!-- ======================= RITUAL / PROCESS ======================= -->
-    <section class="section ritual">
-      <div class="container">
-        <div class="section__head">
-          <p class="section__overline reveal">The Ritual</p>
-          <h2 class="section__title reveal">How a MONO visit <em class="gold">works</em></h2>
-        </div>
-        <ol class="ritual__steps">
-          <li class="ritual__step reveal">
-            <span class="ritual__num">01</span>
-            <h3>Consult</h3>
-            <p>We read your hair, your growth pattern and your routine before a single blade moves.</p>
-          </li>
-          <li class="ritual__step reveal">
-            <span class="ritual__num">02</span>
-            <h3>Craft</h3>
-            <p>With scissors, clippers and a straight razor, the cut is built in layers and checked from every angle.</p>
-          </li>
-          <li class="ritual__step reveal">
-            <span class="ritual__num">03</span>
-            <h3>Finish</h3>
-            <p>Hot towel, razor detailing, wash and style. You leave camera-ready, not salon-fresh.</p>
-          </li>
-          <li class="ritual__step reveal">
-            <span class="ritual__num">04</span>
-            <h3>Maintain</h3>
-            <p>Product advice and a rebooking window so the cut looks deliberate for weeks, not just days.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ======================= BARBERS ======================= -->
-    <section class="section section--alt barbers" id="barbers">
-      <div class="container">
-        <div class="section__head">
-          <p class="section__overline reveal">The Team</p>
-          <h2 class="section__title reveal">Master <em class="gold">barbers</em></h2>
-          <p class="section__lead reveal">Every chair at MONO is earned. Our barbers train for a minimum of five years before they touch a client’s hair unsupervised.</p>
-        </div>
-
-        <div class="barbers__grid">
-          <article class="barber reveal">
-            <div class="barber__portrait">
-              <img src="https://image.shutterstock.com/z/stock-photo-a-barber-wearing-a-leather-apron-2623399499.jpg" alt="Jonas Weber, master barber and founder, wearing a leather apron" loading="lazy" />
-              <span class="barber__tag">Founder</span>
-            </div>
-            <h3 class="barber__name">Jonas “Mono” Weber</h3>
-            <p class="barber__role">Master Barber · Founder</p>
-            <p class="barber__bio">18 years on the chair. Trained in London and Istanbul; obsessed with scissor-over-comb classics.</p>
-          </article>
-
-          <article class="barber reveal">
-            <div class="barber__portrait">
-              <img src="https://image.shutterstock.com/z/stock-photo-barber-man-in-an-apron-keeping-the-arms-crossed-in-frontal-position-1539557852.jpg" alt="Emir Kaya, senior barber, standing with arms crossed" loading="lazy" />
-              <span class="barber__tag">Fade Specialist</span>
-            </div>
-            <h3 class="barber__name">Emir Kaya</h3>
-            <p class="barber__role">Senior Barber</p>
-            <p class="barber__bio">The fade surgeon. If it involves a zero gap and a straight edge, Emir has already perfected it.</p>
-          </article>
-
-          <article class="barber reveal">
-            <div class="barber__portrait">
-              <img src="https://image.shutterstock.com/z/stock-photo-portrait-of-happy-barber-man-hairstylist-posing-and-standing-with-apron-crossed-his-arm-at-1428224171.jpg" alt="Luca Moretti, senior barber, posing in his apron at the barbershop" loading="lazy" />
-              <span class="barber__tag">Shave Expert</span>
-            </div>
-            <h3 class="barber__name">Luca Moretti</h3>
-            <p class="barber__role">Senior Barber</p>
-            <p class="barber__bio">Third-generation barber from Napoli. His hot-towel shave is the reason half our regulars found us.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================= GALLERY ======================= -->
-    <section class="section gallery" id="gallery">
-      <div class="container">
-        <div class="section__head">
-          <p class="section__overline reveal">The Look</p>
-          <h2 class="section__title reveal">Inside the <em class="gold">club</em></h2>
-        </div>
-
-        <div class="gallery__grid">
-          <figure class="gallery__item gallery__item--wide reveal">
-            <img src="https://image.shutterstock.com/z/stock-photo-stylish-vintage-barber-chairs-in-black-and-grey-interior-barbershop-theme-669239866.jpg" alt="Vintage barber chairs in a black and grey interior" loading="lazy" />
-            <figcaption>Leather, steel &amp; walnut interior</figcaption>
           </figure>
-
-          <figure class="gallery__item reveal">
-            <img src="https://image.shutterstock.com/z/stock-photo-tool-barber-top-view-professional-razors-scissors-and-combs-on-a-black-1500521915.jpg" alt="Professional barber tools laid out on a black surface" loading="lazy" />
-            <figcaption>Precision tools, sterilised per client</figcaption>
-          </figure>
-
-          <figure class="gallery__item reveal">
-            <img src="https://image.shutterstock.com/z/stock-photo-close-up-of-a-barber-s-hands-using-a-professional-electric-hair-clipper-and-a-white-comb-for-a-fade-2767557689.jpg" alt="Close-up of a barber blending a fade with clipper and comb" loading="lazy" />
-            <figcaption>Fades blended to the millimetre</figcaption>
-          </figure>
-
-          <figure class="gallery__item reveal">
-            <img src="https://image.shutterstock.com/z/stock-photo-barbershop-the-hand-of-the-master-in-the-process-of-work-men-s-haircut-close-up-the-master-1783562759.jpg" alt="Barber's hands performing a precise haircut" loading="lazy" />
-            <figcaption>Hand-finished scissor work</figcaption>
-          </figure>
-
-          <figure class="gallery__item gallery__item--tall reveal">
-            <img src="https://image.shutterstock.com/z/stock-photo-straight-razor-barbershop-towel-barber-shop-salon-men-haircut-man-in-barbershop-salon-bearded-1820021855.jpg" alt="Straight razor and towel ready for a traditional shave" loading="lazy" />
-            <figcaption>The straight-razor ritual</figcaption>
-          </figure>
-
-          <figure class="gallery__item gallery__item--wide reveal">
-            <img src="https://image.shutterstock.com/z/stock-photo-professional-barber-applies-hot-towel-to-male-client-s-face-to-relax-beard-before-traditional-1938530200.jpg" alt="Barber applying a hot towel before a traditional shave" loading="lazy" />
-            <figcaption>Hot towels, every visit</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================= REVIEWS ======================= -->
-    <section class="section section--alt reviews" id="reviews">
-      <div class="container">
-        <div class="section__head">
-          <p class="section__overline reveal">Word of Mouth</p>
-          <h2 class="section__title reveal">What the club <em class="gold">says</em></h2>
-        </div>
-
-        <div class="slider reveal" id="slider">
-          <div class="slider__viewport">
-            <div class="slider__track" id="sliderTrack">
-              <blockquote class="review">
-                <div class="review__stars" aria-label="5 out of 5 stars">★★★★★</div>
-                <p>“I’ve been to barbershops in four countries, and nobody, I mean nobody, checks a fade from as many angles as Emir does. I book six weeks in advance and it’s worth every day of waiting.”</p>
-                <footer><strong>Markus H.</strong><span>Regular since 2019</span></footer>
-              </blockquote>
-              <blockquote class="review">
-                <div class="review__stars" aria-label="5 out of 5 stars">★★★★★</div>
-                <p>“The hot towel shave before my wedding was the calmest 50 minutes of that entire week. Luca is an artist with a straight razor. My father-in-law now goes too.”</p>
-                <footer><strong>Daniel R.</strong><span>Hot Towel Shave</span></footer>
-              </blockquote>
-              <blockquote class="review">
-                <div class="review__stars" aria-label="5 out of 5 stars">★★★★★</div>
-                <p>“Took my son for the Father &amp; Son cut. They treated a nervous 8-year-old like a VIP client, consultation and all. He now ‘needs’ to go every month. So do I.”</p>
-                <footer><strong>Tobias K.</strong><span>Father &amp; Son</span></footer>
-              </blockquote>
-              <blockquote class="review">
-                <div class="review__stars" aria-label="5 out of 5 stars">★★★★★</div>
-                <p>“Grey blending that actually looks like nothing was done, just somehow better. Jonas understood exactly what I meant by ‘subtle’. Found my barbershop for the next 20 years.”</p>
-                <footer><strong>Stefan B.</strong><span>Grey Blending + Cut</span></footer>
-              </blockquote>
-            </div>
+          <div class="card__info">
+            <h3 class="card__name">Grafica Faux-Fur Coat</h3>
+            <p class="card__meta">Outerwear</p>
+            <p class="card__price">€2,450</p>
           </div>
+        </article>
 
-          <div class="slider__controls">
-            <button class="slider__btn" id="prevBtn" aria-label="Previous review">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18 L9 12 L15 6"/></svg>
-            </button>
-            <div class="slider__dots" id="sliderDots" role="tablist" aria-label="Review slides"></div>
-            <button class="slider__btn" id="nextBtn" aria-label="Next review">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 L15 12 L9 18"/></svg>
-            </button>
+        <article class="card reveal" data-category="knitwear"
+          data-name="Nube Cashmere Knit" data-price="890"
+          data-desc="Cloud-weight cashmere knitted in the round for a seamless drape. Garment-dyed in our signature écru."
+          data-img="https://image.shutterstock.com/z/stock-photo-a-stylish-woman-stands-gracefully-in-a-fashion-studio-dressed-in-a-warm-light-brown-knit-sweater-2622596907.jpg">
+          <figure class="card__media" data-cursor="view">
+            <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-a-stylish-woman-stands-gracefully-in-a-fashion-studio-dressed-in-a-warm-light-brown-knit-sweater-2622596907.jpg" alt="Model in an écru MONO cashmere knit" />
+            <div class="card__actions">
+              <button class="card__quick" data-action="quickview">Quick view</button>
+              <button class="card__add"   data-action="add">Add to bag</button>
+            </div>
+          </figure>
+          <div class="card__info">
+            <h3 class="card__name">Nube Cashmere Knit</h3>
+            <p class="card__meta">Knitwear</p>
+            <p class="card__price">€890</p>
           </div>
-        </div>
+        </article>
+
+        <article class="card reveal" data-category="tailoring"
+          data-name="Sartoria Wool Suit" data-price="2780"
+          data-desc="Two-piece suit in dry-handle wool. Soft shoulder, side adjusters, trousers with a single forward pleat."
+          data-img="https://image.shutterstock.com/z/stock-photo-black-and-white-portrait-of-a-stylish-young-man-on-a-white-background-wearing-a-black-classic-suit-2592150555.jpg">
+          <figure class="card__media" data-cursor="view">
+            <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-black-and-white-portrait-of-a-stylish-young-man-on-a-white-background-wearing-a-black-classic-suit-2592150555.jpg" alt="Model in a black MONO wool suit and black shirt" />
+            <div class="card__actions">
+              <button class="card__quick" data-action="quickview">Quick view</button>
+              <button class="card__add"   data-action="add">Add to bag</button>
+            </div>
+          </figure>
+          <div class="card__info">
+            <h3 class="card__name">Sartoria Wool Suit</h3>
+            <p class="card__meta">Tailoring</p>
+            <p class="card__price">€2,780</p>
+          </div>
+        </article>
+
+        <article class="card reveal" data-category="tailoring"
+          data-name="Alba Column Dress" data-price="3200"
+          data-desc="A minimalist column dress in bonded crepe. Clean neckline, invisible closure, floor-length fall."
+          data-img="https://image.shutterstock.com/z/stock-photo-elegant-woman-in-minimalist-white-outfit-showcasing-sophisticated-jewelry-against-neutral-2560375745.jpg">
+          <figure class="card__media" data-cursor="view">
+            <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-elegant-woman-in-minimalist-white-outfit-showcasing-sophisticated-jewelry-against-neutral-2560375745.jpg" alt="Model in a minimalist white MONO column dress" />
+            <span class="card__tag">New</span>
+            <div class="card__actions">
+              <button class="card__quick" data-action="quickview">Quick view</button>
+              <button class="card__add"   data-action="add">Add to bag</button>
+            </div>
+          </figure>
+          <div class="card__info">
+            <h3 class="card__name">Alba Column Dress</h3>
+            <p class="card__meta">Tailoring</p>
+            <p class="card__price">€3,200</p>
+          </div>
+        </article>
+
+        <article class="card reveal" data-category="accessories"
+          data-name="Piega Quilted Bag" data-price="1650"
+          data-desc="Top-handle bag in quilted calf leather. Hand-stitched, magnetic closure, suede interior."
+          data-img="https://image.shutterstock.com/z/stock-photo-black-top-handle-quilted-women-s-handbag-displayed-as-a-fashion-accessory-representing-elegance-2733684385.jpg">
+          <figure class="card__media" data-cursor="view">
+            <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-black-top-handle-quilted-women-s-handbag-displayed-as-a-fashion-accessory-representing-elegance-2733684385.jpg" alt="Black quilted MONO top-handle bag" />
+            <div class="card__actions">
+              <button class="card__quick" data-action="quickview">Quick view</button>
+              <button class="card__add"   data-action="add">Add to bag</button>
+            </div>
+          </figure>
+          <div class="card__info">
+            <h3 class="card__name">Piega Quilted Bag</h3>
+            <p class="card__meta">Accessories</p>
+            <p class="card__price">€1,650</p>
+          </div>
+        </article>
+
+        <article class="card reveal" data-category="accessories"
+          data-name="Sella Leather Boot" data-price="1120"
+          data-desc="Ankle boot in bone-white calf leather on a stacked heel. Blake-stitched in Tuscany."
+          data-img="https://image.shutterstock.com/z/stock-photo-white-leather-boot-rear-view-isolated-on-gray-background-with-shadow-2009959580.jpg">
+          <figure class="card__media" data-cursor="view">
+            <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-white-leather-boot-rear-view-isolated-on-gray-background-with-shadow-2009959580.jpg" alt="Bone-white MONO leather ankle boot" />
+            <div class="card__actions">
+              <button class="card__quick" data-action="quickview">Quick view</button>
+              <button class="card__add"   data-action="add">Add to bag</button>
+            </div>
+          </figure>
+          <div class="card__info">
+            <h3 class="card__name">Sella Leather Boot</h3>
+            <p class="card__meta">Accessories</p>
+            <p class="card__price">€1,120</p>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- ======================= CONTACT / BOOKING ======================= -->
-    <section class="section contact" id="contact">
-      <div class="container">
-        <div class="contact__grid">
-          <div class="contact__info">
-            <p class="section__overline reveal">Visit Us</p>
-            <h2 class="section__title reveal">Book your <em class="gold">chair</em></h2>
-            <p class="reveal">We work by appointment only, because that’s how we keep the chair unhurried and the towels hot. Book online, call, or drop us a line below.</p>
-
-            <ul class="contact__list reveal">
-              <li>
-                <span class="contact__label">Address</span>
-                <span>Torstraße 128, 10119 Berlin&nbsp;Mitte</span>
-              </li>
-              <li>
-                <span class="contact__label">Phone</span>
-                <a href="tel:+493012345678">+49 30 1234 5678</a>
-              </li>
-              <li>
-                <span class="contact__label">Email</span>
-                <a href="mailto:book@monobarberclub.de">book@monobarberclub.de</a>
-              </li>
-            </ul>
-
-            <div class="hours reveal">
-              <h3 class="hours__title">Opening hours</h3>
-              <dl class="hours__list">
-                <div><dt>Mon – Fri</dt><dd>10:00 – 20:00</dd></div>
-                <div><dt>Saturday</dt><dd>09:00 – 18:00</dd></div>
-                <div><dt>Sunday</dt><dd class="gold">Closed, because razors rest too</dd></div>
-              </dl>
-            </div>
-          </div>
-
-          <form class="booking reveal" id="bookingForm" novalidate>
-            <h3 class="booking__title">Request an appointment</h3>
-
-            <div class="field">
-              <label for="bName">Name</label>
-              <input type="text" id="bName" name="name" placeholder="Max Mustermann" autocomplete="name" required />
-              <span class="field__error">Please tell us your name.</span>
-            </div>
-
-            <div class="field">
-              <label for="bPhone">Phone or email</label>
-              <input type="text" id="bPhone" name="contact" placeholder="+49 · or · you@mail.com" autocomplete="tel" required />
-              <span class="field__error">We need a way to confirm your slot.</span>
-            </div>
-
-            <div class="field__row">
-              <div class="field">
-                <label for="bService">Service</label>
-                <select id="bService" name="service" required>
-                  <option value="" disabled selected>Choose…</option>
-                  <option>Classic Haircut · 35 €</option>
-                  <option>Skin Fade · 40 €</option>
-                  <option>Beard Sculpt · 25 €</option>
-                  <option>Hot Towel Shave · 45 €</option>
-                  <option>Cut &amp; Beard Combo · 55 €</option>
-                  <option>Father &amp; Son · 55 €</option>
-                </select>
-                <span class="field__error">Pick a service.</span>
-              </div>
-              <div class="field">
-                <label for="bDate">Preferred date</label>
-                <input type="date" id="bDate" name="date" required />
-                <span class="field__error">Choose a date.</span>
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="bNotes">Notes <small>(optional)</small></label>
-              <textarea id="bNotes" name="notes" rows="3" placeholder="Preferred barber, style references, anything we should know…"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn--gold booking__submit">Request Appointment</button>
-            <p class="booking__fineprint">We confirm every request personally within 2 business hours.</p>
-
-            <div class="booking__success" id="bookingSuccess" hidden>
-              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="32" cy="32" r="26"/>
-                <path d="M20 33 L29 42 L45 24"/>
-              </svg>
-              <h3>Request received</h3>
-              <p>Danke! We’ll confirm your chair shortly. Keep an eye on your phone.</p>
-            </div>
-          </form>
+    <!-- ============ CAMPAIGN ============ -->
+    <section class="section campaign" id="campaign">
+      <div class="campaign__grid">
+        <figure class="campaign__media reveal" data-parallax>
+          <img loading="lazy"
+            src="https://image.shutterstock.com/z/stock-photo-elegant-black-and-white-portrait-of-a-woman-in-a-white-shirt-and-tie-featuring-minimalist-jewelry-2559898015.jpg"
+            alt="Black and white campaign portrait in a white shirt and tie" />
+        </figure>
+        <div class="campaign__copy">
+          <p class="kicker reveal">02 — The Campaign</p>
+          <h2 class="section__title reveal">Tone<br /><em>on tone</em></h2>
+          <p class="lead reveal">Shot in a single afternoon of northern light, FW26 strips colour away until only line, texture and shadow remain. What is left is the essential garment.</p>
+          <a href="#lookbook" class="link-arrow reveal" data-cursor="hover">See the lookbook <span aria-hidden="true">→</span></a>
         </div>
+        <figure class="campaign__media campaign__media--tall reveal" data-parallax>
+          <img loading="lazy"
+            src="https://image.shutterstock.com/z/stock-photo-androgynous-black-male-model-in-elegant-white-jacket-touching-necklace-and-leg-and-looking-at-2191665299.jpg"
+            alt="Model in an elegant white MONO jacket in a dim room" />
+        </figure>
       </div>
     </section>
+
+    <!-- ============ MANIFESTO ============ -->
+    <section class="manifesto">
+      <blockquote class="manifesto__quote reveal">
+        <p>“Colour asks for attention.<br /><em>Form earns it.</em>”</p>
+        <cite>— MONO, Manifesto N°1</cite>
+      </blockquote>
+    </section>
+
+    <!-- ============ LOOKBOOK ============ -->
+    <section class="section lookbook" id="lookbook">
+      <header class="section__head section__head--row">
+        <div>
+          <p class="kicker reveal">03 — Lookbook</p>
+          <h2 class="section__title reveal">Worn in<br /><em>the wild</em></h2>
+        </div>
+        <p class="section__hint reveal" aria-hidden="true">Drag to explore →</p>
+      </header>
+
+      <div class="strip" id="strip" tabindex="0" aria-label="Lookbook gallery, scrolls horizontally">
+        <figure class="strip__item">
+          <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-girl-cross-the-street-at-a-pedestrian-crossing-trendy-street-style-photography-the-girl-dressed-2073183716.jpg" alt="Look 01 — trench coat at a pedestrian crossing" />
+          <figcaption>Look 01 — Crosswalk</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-white-young-woman-in-black-clothes-urban-style-1902190492.jpg" alt="Look 02 — black tailoring against an urban backdrop" />
+          <figcaption>Look 02 — Concrete</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-a-stylish-woman-wearing-a-trench-coat-and-sunglasses-leans-against-a-car-on-a-coastal-road-exuding-2802097323.jpg" alt="Look 03 — trench coat on a coastal road, monochrome" />
+          <figcaption>Look 03 — Coast Road</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-two-stylish-women-with-sleek-hairstyles-and-elegant-jewelry-pose-against-a-minimalist-background-2552236139.jpg" alt="Look 04 — two models against a minimalist backdrop" />
+          <figcaption>Look 04 — Duet</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <img loading="lazy" src="https://image.shutterstock.com/z/stock-photo-street-fashion-gorgeous-woman-in-a-coat-poses-on-the-street-on-an-autumn-day-2523815793.jpg" alt="Look 05 — wool coat on an autumn street" />
+          <figcaption>Look 05 — October</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ ATELIER ============ -->
+    <section class="section atelier" id="atelier">
+      <div class="atelier__grid">
+        <div class="atelier__copy">
+          <p class="kicker kicker--light reveal">04 — The Atelier</p>
+          <h2 class="section__title reveal">Made slowly,<br /><em>made once</em></h2>
+          <p class="lead reveal">Every MONO piece is cut, pinned and finished in our Milanese atelier. No seasons chased, no shortcuts taken. A garment leaves the table only when it cannot be improved.</p>
+          <ul class="atelier__facts reveal">
+            <li><strong>48h</strong><span>of handwork in every coat</span></li>
+            <li><strong>100%</strong><span>traceable natural fibres</span></li>
+            <li><strong>1</strong><span>atelier — Milano, since 2016</span></li>
+          </ul>
+        </div>
+        <figure class="atelier__media reveal" data-parallax>
+          <img loading="lazy"
+            src="https://image.shutterstock.com/z/stock-photo-fashion-designer-hands-pinning-fabric-on-a-black-mannequin-creative-tailoring-process-garment-1371248093.jpg"
+            alt="Designer's hands pinning fabric on a black mannequin" />
+        </figure>
+        <figure class="atelier__media atelier__media--small reveal" data-parallax>
+          <img loading="lazy"
+            src="https://image.shutterstock.com/z/stock-photo-a-charismatic-tailor-deeply-focused-on-his-craft-his-skilled-hands-carefully-stitch-fabric-a-2603127517.jpg"
+            alt="Tailor hand-stitching fabric in the atelier" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ NEWSLETTER ============ -->
+    <section class="section newsletter" id="newsletter">
+      <div class="newsletter__inner">
+        <p class="kicker reveal">05 — Stay close</p>
+        <h2 class="section__title reveal">First to know,<br /><em>never spammed</em></h2>
+        <p class="lead reveal">One letter per collection. Early access, atelier notes, nothing else.</p>
+        <form class="newsletter__form reveal" id="newsForm" novalidate>
+          <label class="sr-only" for="newsEmail">Email address</label>
+          <input type="email" id="newsEmail" name="email" placeholder="your@email.com" autocomplete="email" required />
+          <button type="submit" class="btn btn--dark" data-cursor="hover">Subscribe</button>
+        </form>
+        <p class="newsletter__msg" id="newsMsg" role="status"></p>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ======================= FOOTER ======================= -->
+  <!-- ============ FOOTER ============ -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer__top">
-        <a href="#top" class="footer__logo">MONO<span class="gold">.</span></a>
-        <p class="footer__tag">Sharp. Classic. Yours.</p>
+    <div class="footer__top">
+      <a href="#top" class="footer__logo" aria-label="MONO — back to top">MONO</a>
+    </div>
+    <div class="footer__cols">
+      <div>
+        <h4>Maison</h4>
+        <ul>
+          <li><a href="#collection">Collection</a></li>
+          <li><a href="#campaign">Campaign</a></li>
+          <li><a href="#atelier">Atelier</a></li>
+        </ul>
       </div>
-
-      <div class="footer__grid">
-        <nav class="footer__nav" aria-label="Footer navigation">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#barbers">Barbers</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <div class="footer__social">
-          <a href="#" aria-label="Instagram">Instagram</a>
-          <a href="#" aria-label="TikTok">TikTok</a>
-          <a href="#" aria-label="Google Maps">Maps</a>
-        </div>
+      <div>
+        <h4>Client care</h4>
+        <ul>
+          <li><a href="#">Shipping &amp; returns</a></li>
+          <li><a href="#">Size guide</a></li>
+          <li><a href="#">Garment care</a></li>
+        </ul>
       </div>
-
-      <div class="footer__bottom">
-        <p>© <span id="year">2026</span> MONO Barberclub. All rights reserved.</p>
-        <p>Torstraße 128 · 10119 Berlin · Appointment only</p>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#" rel="noopener">Instagram</a></li>
+          <li><a href="#" rel="noopener">Pinterest</a></li>
+          <li><a href="#" rel="noopener">Spotify</a></li>
+        </ul>
       </div>
+      <div>
+        <h4>Flagships</h4>
+        <ul>
+          <li>Via della Spiga, Milano</li>
+          <li>Rue Saint-Honoré, Paris</li>
+          <li>Omotesandō, Tokyo</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© <span id="year"></span> MONO S.p.A. — All imagery via Shutterstock, for demonstration only.</p>
+      <p>A study in monochrome.</p>
     </div>
   </footer>
 
-  <button class="to-top" id="toTop" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15 L12 9 L18 15"/></svg>
-  </button>
+  <!-- ============ CART DRAWER ============ -->
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="drawer" id="drawer" aria-label="Shopping bag" aria-hidden="true">
+    <header class="drawer__head">
+      <h3>Your bag <span id="drawerCount">(0)</span></h3>
+      <button class="drawer__close" id="drawerClose" aria-label="Close bag">✕</button>
+    </header>
+    <div class="drawer__items" id="drawerItems">
+      <p class="drawer__empty">Your bag is empty — for now.</p>
+    </div>
+    <footer class="drawer__foot">
+      <div class="drawer__total"><span>Subtotal</span><strong id="drawerTotal">€0</strong></div>
+      <p class="drawer__note">Shipping &amp; duties calculated at checkout.</p>
+      <button class="btn btn--dark btn--full" id="checkoutBtn">Checkout</button>
+    </footer>
+  </aside>
+
+  <!-- ============ QUICK VIEW MODAL ============ -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <div class="modal__backdrop" id="modalBackdrop"></div>
+    <div class="modal__panel">
+      <button class="modal__close" id="modalClose" aria-label="Close quick view">✕</button>
+      <figure class="modal__media"><img id="modalImg" src="" alt="" /></figure>
+      <div class="modal__info">
+        <p class="kicker" id="modalCat"></p>
+        <h3 id="modalName"></h3>
+        <p class="modal__price" id="modalPrice"></p>
+        <p class="modal__desc" id="modalDesc"></p>
+        <div class="modal__sizes" role="group" aria-label="Select size">
+          <button class="size">XS</button><button class="size is-active">S</button>
+          <button class="size">M</button><button class="size">L</button><button class="size">XL</button>
+        </div>
+        <button class="btn btn--dark btn--full" id="modalAdd">Add to bag</button>
+        <p class="modal__ship">Free express shipping · Free returns within 30 days</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="js/main.js" defer></script>
 </body>
